@@ -177,9 +177,12 @@ Negative is downwards."
   :type 'string
   :group 'lambda-line)
 
-(defcustom lambda-line-icon-time nil
-  "When set to non-nil show the time as an icon clock.
-Time info is only shown `display-time-mode' is non-nil"
+(defcustom lambda-line-icon-time -1
+  "When set to 1 show the time as only an icon clock.
+Time info is only shown `display-time-mode' is non-nil. 
+When set to -1, do not show the icon clock (default). 
+Any other non-nil value, display textual time and 
+icon clock together."
   :type 'boolean
   :group 'lambda-line)
 
@@ -703,13 +706,14 @@ Optionally use another clockface font."
             (cl-destructuring-bind (_ minute hour &rest n) (decode-time)
               (lambda-line-clockface-icons-unicode hour minute))))
       (concat
-        (unless lambda-line-icon-time
+        (unless (= lambda-line-icon-time 1)
           (if display-time-day-and-date
               (propertize (format-time-string lambda-line-time-day-and-date-format))
             (propertize (format-time-string lambda-line-time-format ) 'face `(:height 0.9))))
-        (propertize
-          (format lambda-line-time-icon-format (char-to-string time-unicode)
-           'display '(raise 0)))))))
+        (unless (= lambda-line-icon-time -1)
+          (propertize
+            (format lambda-line-time-icon-format (char-to-string time-unicode)
+              'display '(raise 0))))))))
 
 ;;;;; Status
 (defun lambda-line-status ()
