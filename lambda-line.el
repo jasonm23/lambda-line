@@ -179,15 +179,16 @@ Negative is downwards."
 
 (defcustom lambda-line-icon-time -1
   "When set to 1 show the time as only an icon clock.
-Time info is only shown `display-time-mode' is non-nil. 
 When set to -1, do not show the icon clock (default). 
 Any other non-nil value, display textual time and 
-icon clock together."
+icon clock together.
+
+Time info is only shown when `display-time-mode' is non-nil."
   :type 'boolean
   :group 'lambda-line)
 
 (defcustom lambda-line-time-day-and-date-format "  %H:%M %Y-%m-%e "
-  "`format-time-string'."
+  "When `display-time-day-and-date' is non-nil display the date with this format."
   :type 'string
   :group 'lambda-line)
 
